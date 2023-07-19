@@ -2,7 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+require('dotenv').config();
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -19,6 +19,9 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Credentials", "true");
     next();
 });
+
+app.use(cors());
+
 app.use(bodyParser.json()); // To parse JSON data
 
 // Start the server
