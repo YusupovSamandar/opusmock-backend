@@ -1,0 +1,30 @@
+{
+  "pending": [],
+  "complete": [
+    {
+      "candidate": "asda",
+      "id": 58,
+      "room": "222",
+      "examinerName": "sam"
+    },
+    {
+      "candidate": "qwe",
+      "id": 59,
+      "room": "222",
+      "examinerName": "sam"
+    },
+    {
+      "candidate": "qwer",
+      "id": 60,
+      "room": "222",
+      "examinerName": "sam"
+    },
+    {
+      "candidate": "zsdf",
+      "id": 61,
+      "room": "222",
+      "examinerName": "sam"
+    }
+  ],
+  "candidateNumber": 62
+}
