@@ -25,6 +25,7 @@ const { moveFromPendingToComplete } = require("./custom/addData")
 // Routes
 
 const { addCandidate, getPending } = require("./routes/candidates");
+const { addExaminer, removeExaminer, getExaminers } = require("./routes/examiners");
 
 const port = process.env.PORT || 4000;
 
@@ -46,7 +47,10 @@ app.use(cors({ origin: "*" }));
 app.use(bodyParser.json()); // To parse JSON data
 
 app.post("/candidate", addCandidate);
-app.get("/all", getPending)
+app.get("/all", getPending);
+app.get("/examiners", getExaminers);
+app.post("/examiners", addExaminer);
+app.delete("/examiners", removeExaminer);
 
 
 
@@ -70,15 +74,18 @@ io.on('connection', (socket) => {
     });
     socket.on("add-candidate", (req) => {
         // call candidate
-        const { name } = req;
+        const { name, examiner } = req;
         const newObj = {
-            candidate: name
+            candidate: name,
+            examiner
         }
         let addedCandNumber = add(newObj, "pending");
         // JSON.parse(obj)
 
         const filePath = path.join(__dirname, './data.json');
         const jsonData = JSON.parse(fs.readFileSync(filePath));
+
+        console.log(jsonData)
 
         io.to(socket.id).emit("inform", addedCandNumber);
         io.emit("update-candidates", jsonData);
