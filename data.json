@@ -1,30 +1,57 @@
 {
-  "pending": [],
-  "complete": [
+  "pending": [
     {
-      "candidate": "asda",
-      "id": 58,
-      "room": "222",
-      "examinerName": "sam"
+      "candidate": "bb",
+      "id": 67
     },
     {
-      "candidate": "qwe",
-      "id": 59,
-      "room": "222",
-      "examinerName": "sam"
+      "candidate": "qq",
+      "id": 68
     },
     {
-      "candidate": "qwer",
-      "id": 60,
-      "room": "222",
-      "examinerName": "sam"
+      "candidate": "ww",
+      "id": 69
     },
     {
-      "candidate": "zsdf",
-      "id": 61,
-      "room": "222",
-      "examinerName": "sam"
+      "candidate": "san",
+      "id": 70
+    },
+    {
+      "candidate": "sagg",
+      "id": 71
     }
   ],
-  "candidateNumber": 62
+  "complete": [
+    {
+      "candidate": "Yusupov Samandar",
+      "id": 62,
+      "room": "202",
+      "examinerName": "azizbek"
+    },
+    {
+      "candidate": "SaGo#2054",
+      "id": 63,
+      "room": "202",
+      "examinerName": "azizbek"
+    },
+    {
+      "candidate": "samandar",
+      "id": 64,
+      "room": "202",
+      "examinerName": "azizbek"
+    },
+    {
+      "candidate": "asd",
+      "id": 65,
+      "room": "202",
+      "examinerName": "azizbek"
+    },
+    {
+      "candidate": "as",
+      "id": 66,
+      "room": "202",
+      "examinerName": "azizbek"
+    }
+  ],
+  "candidateNumber": 72
 }

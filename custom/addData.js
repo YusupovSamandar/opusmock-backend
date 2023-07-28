@@ -19,6 +19,7 @@ const add = (newObject, collectionName) => {
 
     // Write the updated JSON data back to the file
     fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+    return jsonData.candidateNumber - 1;
 };
 
 

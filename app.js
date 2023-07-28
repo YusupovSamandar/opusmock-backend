@@ -74,12 +74,13 @@ io.on('connection', (socket) => {
         const newObj = {
             candidate: name
         }
-        add(newObj, "pending");
+        let addedCandNumber = add(newObj, "pending");
         // JSON.parse(obj)
 
         const filePath = path.join(__dirname, './data.json');
         const jsonData = JSON.parse(fs.readFileSync(filePath));
 
+        io.to(socket.id).emit("inform", addedCandNumber);
         io.emit("update-candidates", jsonData);
     })
     socket.on('disconnect', () => {
