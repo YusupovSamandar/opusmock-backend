@@ -78,7 +78,7 @@ const skipCandidate = (cnd) => {
         if (jsonData.pending.length < 2) {
             jsonData.pending.push(objectToMove);
         } else {
-            jsonData.pending.splice(1, 0, objectToMove); // Inserts the newElement at index 1 (2nd index)
+            jsonData.pending.splice(2, 0, objectToMove); // Inserts the newElement at index 1 (2nd index)
         }
         fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
         return true;

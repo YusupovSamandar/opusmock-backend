@@ -78,6 +78,7 @@ io.on('connection', (socket) => {
         const response = skipCandidate(obj);
         if (response) {
             io.to(socket.id).emit("skipped", obj.id);
+            io.emit("update-candidates", jsonData);
         }
     });
 
