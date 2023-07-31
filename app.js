@@ -7,7 +7,7 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const socketIO = require("socket.io");
-const { add } = require("./custom/addData");
+const { add, skipCandidate } = require("./custom/addData");
 const fs = require('fs');
 
 const path = require('path');
@@ -72,6 +72,15 @@ io.on('connection', (socket) => {
 
         io.emit("update-candidates", jsonData);
     });
+
+    socket.on("skip-candidate", (obj) => {
+        // call candidate
+        const response = skipCandidate(obj);
+        if (response) {
+            io.to(socket.id).emit("skipped", obj.id);
+        }
+    });
+
     socket.on("add-candidate", (req) => {
         // call candidate
         const { name, examiner } = req;

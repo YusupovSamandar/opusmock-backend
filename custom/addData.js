@@ -1,6 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
+function insertAtSecondIndexOrLast(array, newElement) {
+
+}
+
 
 const add = (newObject, collectionName) => {
     // Read the JSON data from the file
@@ -62,6 +66,26 @@ const moveFromPendingToComplete = (caller) => {
     }
 }
 
+const skipCandidate = (cnd) => {
+    const filePath = path.join(__dirname, '../data.json');
+    const jsonData = JSON.parse(fs.readFileSync(filePath));
+
+    const indxToMove = jsonData.complete.findIndex(obj => obj.id === cnd.id);
+
+    if (indxToMove) {
+        const { room, ...objectToMove } = jsonData.complete.splice(indxToMove, 1)[0];
+
+        if (jsonData.pending.length < 2) {
+            jsonData.pending.push(objectToMove);
+        } else {
+            jsonData.pending.splice(1, 0, objectToMove); // Inserts the newElement at index 1 (2nd index)
+        }
+        fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+        return true;
+    }
+
+}
+
 const removeObject = (collection, givenName) => {
     const filePath = path.join(__dirname, '../data.json');
 
@@ -74,4 +98,4 @@ const removeObject = (collection, givenName) => {
     fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
 }
 
-module.exports = { add, read, moveFromPendingToComplete, removeObject };
+module.exports = { add, skipCandidate, read, moveFromPendingToComplete, removeObject };
