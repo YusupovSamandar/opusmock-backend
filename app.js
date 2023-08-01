@@ -76,7 +76,13 @@ io.on('connection', (socket) => {
     socket.on("skip-candidate", (obj) => {
         // call candidate
         const response = skipCandidate(obj);
+
+
+
         if (response) {
+            const filePath = path.join(__dirname, './data.json');
+            const jsonData = JSON.parse(fs.readFileSync(filePath));
+
             io.to(socket.id).emit("skipped", obj.id);
             io.emit("update-candidates", jsonData);
         }
@@ -95,7 +101,6 @@ io.on('connection', (socket) => {
         const filePath = path.join(__dirname, './data.json');
         const jsonData = JSON.parse(fs.readFileSync(filePath));
 
-        console.log(jsonData)
 
         io.to(socket.id).emit("inform", addedCandNumber);
         io.emit("update-candidates", jsonData);

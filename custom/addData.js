@@ -73,12 +73,29 @@ const skipCandidate = (cnd) => {
     const indxToMove = jsonData.complete.findIndex(obj => obj.id === cnd.id);
 
     if (indxToMove) {
+        console.log(indxToMove);
         const { room, ...objectToMove } = jsonData.complete.splice(indxToMove, 1)[0];
 
         if (jsonData.pending.length < 2) {
             jsonData.pending.push(objectToMove);
         } else {
-            jsonData.pending.splice(2, 0, objectToMove); // Inserts the newElement at index 1 (2nd index)
+            const examinerName = objectToMove.examiner;
+            let count = 0;
+            let indexToInsert = -1;
+
+            for (let i = 0; i < jsonData.pending.length; i++) {
+                if (jsonData.pending[i].examiner === examinerName) {
+                    count++;
+                    if (count === 2 || (count === 1 && indexToInsert === -1)) {
+                        indexToInsert = i + 1;
+                    }
+                }
+            }
+            if (indexToInsert !== -1) {
+                jsonData.pending.splice(indexToInsert, 0, objectToMove);
+            } else {
+                jsonData.pending.push(objectToMove);
+            }
         }
         fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
         return true;
