@@ -24,7 +24,7 @@ const { moveFromPendingToComplete } = require("./custom/addData")
 
 // Routes
 
-const { addCandidate, getPending } = require("./routes/candidates");
+const { addCandidate, getPending, getForSpecificExaminer } = require("./routes/candidates");
 const { addExaminer, removeExaminer, getExaminers } = require("./routes/examiners");
 
 const port = process.env.PORT || 4000;
@@ -47,7 +47,10 @@ app.use(cors({ origin: "*" }));
 app.use(bodyParser.json()); // To parse JSON data
 
 app.post("/candidate", addCandidate);
+
 app.get("/all", getPending);
+app.get("/all/:examiner", getForSpecificExaminer);
+
 app.get("/examiners", getExaminers);
 app.post("/examiners", addExaminer);
 app.delete("/examiners", removeExaminer);
@@ -71,6 +74,7 @@ io.on('connection', (socket) => {
         const jsonData = JSON.parse(fs.readFileSync(filePath));
 
         io.emit("update-candidates", jsonData);
+        io.emit("update-data-for-examiner", caller.examinerName);
     });
 
     socket.on("skip-candidate", (obj) => {
@@ -85,6 +89,7 @@ io.on('connection', (socket) => {
 
             io.to(socket.id).emit("skipped", obj.id);
             io.emit("update-candidates", jsonData);
+            io.emit("update-data-for-examiner", obj.examiner);
         }
     });
 
@@ -104,6 +109,7 @@ io.on('connection', (socket) => {
 
         io.to(socket.id).emit("inform", addedCandNumber);
         io.emit("update-candidates", jsonData);
+        io.emit("update-data-for-examiner", examiner);
     })
     socket.on('disconnect', () => {
         console.log('user disconnected');

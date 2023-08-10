@@ -73,7 +73,6 @@ const skipCandidate = (cnd) => {
     const indxToMove = jsonData.complete.findIndex(obj => obj.id === cnd.id);
 
     if (indxToMove) {
-        console.log(indxToMove);
         const { room, ...objectToMove } = jsonData.complete.splice(indxToMove, 1)[0];
 
         if (jsonData.pending.length < 2) {
