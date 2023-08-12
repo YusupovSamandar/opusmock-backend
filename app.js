@@ -95,10 +95,11 @@ io.on('connection', (socket) => {
 
     socket.on("add-candidate", (req) => {
         // call candidate
-        const { name, examiner } = req;
+        const { name, examiner, id } = req;
         const newObj = {
             candidate: name,
-            examiner
+            examiner,
+            id
         }
         let addedCandNumber = add(newObj, "pending");
         // JSON.parse(obj)

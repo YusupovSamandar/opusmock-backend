@@ -13,9 +13,9 @@ const add = (newObject, collectionName) => {
 
     // Add the new object to the "pending" array
     if (collectionName === "pending") {
-        let currentId = jsonData.candidateNumber
-        jsonData[collectionName].push({ ...newObject, id: currentId });
-        jsonData.candidateNumber++;
+        // let currentId = jsonData.candidateNumber
+        jsonData[collectionName].push({ ...newObject });
+        // jsonData.candidateNumber++;
     } else if (collectionName === "examiners") {
         const result = jsonData[collectionName].find(obj => obj.examinerName === newObject.examinerName);
         if (!result) {
@@ -29,7 +29,7 @@ const add = (newObject, collectionName) => {
 
     // Write the updated JSON data back to the file
     fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
-    return jsonData.candidateNumber - 1;
+    return (newObject.id);
 };
 
 
