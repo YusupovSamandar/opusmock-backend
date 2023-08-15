@@ -18,8 +18,8 @@ exports.getForSpecificExaminer = (req, res) => {
     const thisExaminerName = req.params.examiner;
     const result = read("all");
     const examinerObj = {
-        pending: result.pending.filter((cnd) => cnd.examiner === thisExaminerName),
-        complete: result.complete.filter((cnd) => cnd.examiner === thisExaminerName)
+        pending: result.pending ? result.pending.filter((cnd) => cnd.examiner === thisExaminerName) : [],
+        complete: result.complete ? result.complete.filter((cnd) => cnd.examiner === thisExaminerName) : []
     }
     res.json(examinerObj);
 }
