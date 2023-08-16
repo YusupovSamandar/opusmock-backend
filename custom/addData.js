@@ -15,11 +15,12 @@ const add = (newObject, collectionName) => {
     if (collectionName === "pending") {
         // let currentId = jsonData.candidateNumber
         jsonData[collectionName].push({ ...newObject });
+        jsonData.examiners = jsonData.examiners.map((ob) => (ob.examinerName === newObjectexaminer.examiner) ? { ...obj, pendingNumber: obj.pendingNumber + 1 } : obj)
         // jsonData.candidateNumber++;
     } else if (collectionName === "examiners") {
         const result = jsonData[collectionName].find(obj => obj.examinerName === newObject.examinerName);
         if (!result) {
-            jsonData[collectionName].push(newObject);
+            jsonData[collectionName].push({ ...newObject, pendingNumber: 0 });
         }
     }
     else {
