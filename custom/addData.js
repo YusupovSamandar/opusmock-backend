@@ -15,7 +15,7 @@ const add = (newObject, collectionName) => {
     if (collectionName === "pending") {
         // let currentId = jsonData.candidateNumber
         jsonData[collectionName].push({ ...newObject });
-        jsonData.examiners = jsonData.examiners.map((ob) => (ob.examinerName === newObjectexaminer.examiner) ? { ...obj, pendingNumber: obj.pendingNumber + 1 } : obj)
+        jsonData.examiners = jsonData.examiners.map((ob) => (ob.examinerName === newObject.examiner) ? { ...ob, pendingNumber: ob.pendingNumber + 1 } : ob)
         // jsonData.candidateNumber++;
     } else if (collectionName === "examiners") {
         const result = jsonData[collectionName].find(obj => obj.examinerName === newObject.examinerName);
@@ -57,6 +57,7 @@ const moveFromPendingToComplete = (caller) => {
         // Move the object from "pending" to "complete"
         const objectToMove = jsonData.pending.splice(indexToRemove, 1)[0]; // Splice removes the object from the "pending" array and returns it
         jsonData.complete.push({ ...objectToMove, room: caller.room });
+        jsonData.examiners = jsonData.examiners.map((ob) => (ob.examinerName === caller.examinerName) ? { ...ob, pendingNumber: ob.pendingNumber - 1 } : ob);
 
         // Write the updated JSON data back to the file
         fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
@@ -97,6 +98,8 @@ const skipCandidate = (cnd) => {
                 jsonData.pending.push(objectToMove);
             }
         }
+        jsonData.examiners = jsonData.examiners.map((ob) => (ob.examinerName === objectToMove.examiner) ? { ...ob, pendingNumber: ob.pendingNumber + 1 } : ob);
+
         fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
         return true;
     }
