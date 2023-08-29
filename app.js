@@ -20,7 +20,7 @@ const io = socketIO(server, {
 
 // custom
 
-const { moveFromPendingToComplete } = require("./custom/addData")
+const { moveFromPendingToComplete, cleanData } = require("./custom/addData")
 
 // Routes
 
@@ -54,6 +54,10 @@ app.get("/all/:examiner", getForSpecificExaminer);
 app.get("/examiners", getExaminers);
 app.post("/examiners", addExaminer);
 app.delete("/examiners", removeExaminer);
+app.delete("/all", (req, res) => {
+    let msg = cleanData();
+    res.send(msg);
+})
 
 
 

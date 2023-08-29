@@ -118,4 +118,13 @@ const removeObject = (collection, givenName) => {
     fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
 }
 
-module.exports = { add, skipCandidate, read, moveFromPendingToComplete, removeObject };
+const cleanData = () => {
+    const filePath = path.join(__dirname, '../data.json');
+    const jsonData = JSON.parse(fs.readFileSync(filePath));
+    jsonData.pending = [];
+    jsonData.complete = [];
+    fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+    return "all data removed"
+}
+
+module.exports = { add, skipCandidate, read, moveFromPendingToComplete, removeObject, cleanData };
